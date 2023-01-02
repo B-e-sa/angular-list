@@ -10,6 +10,12 @@ export class ItemService {
         return ITEMS;
     }
 
+    retrieveById(id: number) {
+
+        return ITEMS.filter((item) => item.id === id)
+
+    }
+
 }
 
 let ITEMS: Item[] = [

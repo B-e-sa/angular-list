@@ -1,0 +1,9 @@
+<h2>Course Id = {{ course.id }}</h2>
+
+<form #itemForm="ngForm">
+    <div>
+        <label for="course name">Name: </label>
+        <input [(ngModel)]="course.name" #courseName="ngModel" type="text" name="course name" id="">
+        <span>{{ courseName.value }}</span>
+    </div>
+</form>
