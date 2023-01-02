@@ -4,11 +4,12 @@ import { ActivatedRoute } from "@angular/router";
 import Item from './item';
 
 @Component({
-    templateUrl: './item.info.component.html'
+    templateUrl: './item.info.component.html',
+    styleUrls: ['./item.info.component.sass']
 })
 export class ItemInfoComponent implements OnInit {
 
-    course!: Item;
+    item!: Item;
 
     idParam!: number;
 
@@ -21,8 +22,10 @@ export class ItemInfoComponent implements OnInit {
 
         this.idParam = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
-        this.course = this.itemService.retrieveById(this.idParam)[0];
+        [this.item] = this.itemService.retrieveById(this.idParam);
 
     };
+
+    save(): void { this.itemService.save(this.item) };
 
 };

@@ -1,9 +1,49 @@
-<h2>Course Id = {{ course.id }}</h2>
+<h2>item Id = {{ item.id }}</h2>
 
 <form #itemForm="ngForm">
     <div>
-        <label for="course name">Name: </label>
-        <input [(ngModel)]="course.name" #courseName="ngModel" type="text" name="course name" id="">
-        <span>{{ courseName.value }}</span>
+        <label for="item name">Name: </label>
+        <input 
+            required 
+            [(ngModel)]="item.name"
+            [ngClass]="{'invalid': itemName.invalid}" 
+            #itemName="ngModel"
+            type="text" 
+            name="item name"
+        >
+        <span *ngIf="itemName.invalid">Camp required</span>
+        <span>{{ itemName.value }}</span>
     </div>
+
+    <div>
+        <label for="item name">Price: </label>
+        <input 
+            required 
+            [(ngModel)]="item.price" 
+            [ngClass]="{'invalid': itemPrice.invalid}" 
+            #itemPrice="ngModel"
+            type="number" 
+            name="item price"
+        >
+        <span *ngIf="itemPrice.invalid">Camp required</span>
+        <span>{{ itemPrice.value }}</span>
+    </div>
+
+    <div>
+        <label for="item name">Rating: </label>
+        <input 
+            required
+            [(ngModel)]="item.rating" 
+            [ngClass]="{'invalid': itemRating.invalid}" 
+            #itemRating="ngModel"
+            min="0"
+            max="5"
+            type="number"
+            name="item rating"
+        >
+        <span *ngIf="itemRating.invalid">Insert a value between ZERO and FIVE</span>
+        <span>{{ itemRating.value }}</span>
+    </div>
+
+    <button [disabled]="itemForm.invalid" (click)="save()">Save</button>
 </form>

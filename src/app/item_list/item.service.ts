@@ -6,17 +6,23 @@ import { Injectable } from "@angular/core";
 })
 export class ItemService {
 
-    retrieveAll(): Item[] {
-        return ITEMS;
-    }
+    retrieveAll(): Item[] { return ITEMS };
 
     retrieveById(id: number) {
+        return ITEMS.filter((item) => item.id === id);
+    };
 
-        return ITEMS.filter((item) => item.id === id)
+    save(modifiedItem: Item): void {
+
+        const index = ITEMS.findIndex((item) => item.id === modifiedItem.id)
+
+        ITEMS[index] = modifiedItem;
+
+        console.log(ITEMS[index])
 
     }
 
-}
+};
 
 let ITEMS: Item[] = [
     {
@@ -83,4 +89,4 @@ let ITEMS: Item[] = [
         price: 5,
         rating: 5
     },
-]
+];
