@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import Item from './item';
 import { ItemService } from './item.service';
 
@@ -14,24 +15,31 @@ export class ItemListComponent implements OnInit {
 
     _filterBy: string = '';
 
-    constructor(private ItemService: ItemService) { };
+    constructor(private itemService: ItemService) { };
 
-    ngOnInit(): void {
-
-        this._items = this.ItemService.retrieveAll();
+    retrieveAll(): void {
+        this.itemService.retrieveAll().subscribe({
+            next: (items: Item[]) => {
+                this._items = items;
+                this.filteredItems = this._items;
+            },
+            error: err => console.error('Error! ', err)
+        });
 
         this.filteredItems = this._items;
+    };
 
-    }
+    ngOnInit(): void { this.retrieveAll() };
 
     set filter(value: string) {
 
         this._filterBy = value;
 
-        this.filteredItems = this._items.filter((item: Item) =>
+        this.filteredItems = this._items.filter((item: Item) => {
             item.name
                 .toLocaleLowerCase()
-                .indexOf(this._filterBy.toLocaleLowerCase()) > -1);
+                .indexOf(this._filterBy.toLocaleLowerCase()) > -1
+        });
 
     };
 

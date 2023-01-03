@@ -1,7 +1,7 @@
-import { ItemService } from './item.service';
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import Item from './item';
+import { ItemService } from './item.service';
 
 @Component({
     templateUrl: './item.info.component.html',
@@ -11,7 +11,7 @@ export class ItemInfoComponent implements OnInit {
 
     item!: Item;
 
-    idParam!: number;
+    _idParam!: number;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -20,12 +20,20 @@ export class ItemInfoComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.idParam = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+        this._idParam = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
-        [this.item] = this.itemService.retrieveById(this.idParam);
+        this.itemService.retrieveById(this._idParam).subscribe({
+            next: (item: Item) => this.item = item,
+            error: err => console.error('Error!', err)
+        });
 
     };
 
-    save(): void { this.itemService.save(this.item) };
+    save(): void { 
+        this.itemService.save(this.item).subscribe({
+            next: item => console.log('Saved with success', item),
+            error: err => console.error('Error', err)
+        }) 
+    };
 
 };

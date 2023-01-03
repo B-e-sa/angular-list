@@ -1,27 +1,33 @@
 import Item from "./item";
 import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ItemService {
 
-    retrieveAll(): Item[] { return ITEMS };
+    private itemsUrl: string = 'http://localhost:3100/api/items';
 
-    retrieveById(id: number) {
-        return ITEMS.filter((item) => item.id === id);
+    constructor(private httpClient: HttpClient) { }
+
+    retrieveAll(): Observable<Item[]> {
+        return this.httpClient.get<Item[]>(this.itemsUrl);
     };
 
-    save(modifiedItem: Item): void {
+    retrieveById(id: number): Observable<Item> {
+        return this.httpClient.get<Item>(`${this.itemsUrl}/${id}`)
+    };
 
-        const index = ITEMS.findIndex((item) => item.id === modifiedItem.id)
-
-        ITEMS[index] = modifiedItem;
-
-        console.log(ITEMS[index])
-
-    }
-
+    save(modifiedItem: Item): Observable<Item> {
+        if (modifiedItem.id) {
+            return (
+                this.httpClient
+                    .put<Item>(`${this.itemsUrl}/${modifiedItem.id}`, modifiedItem)
+            )
+        } else {
+            return this.httpClient.post<Item>(`${this.itemsUrl}`, modifiedItem)
+        }
+    };
 };
 
 let ITEMS: Item[] = [

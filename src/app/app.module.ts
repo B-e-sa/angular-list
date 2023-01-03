@@ -10,6 +10,7 @@ import { ItemListComponent } from './item_list/item-list.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ReplacePipe } from './pipe/replace.pipe';
 import { StarsComponent } from './stars/stars.component';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { StarsComponent } from './stars/stars.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: 'items', component: ItemListComponent },
       { path: 'items/info/:id', component: ItemInfoComponent },
