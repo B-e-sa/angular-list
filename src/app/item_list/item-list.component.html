@@ -20,9 +20,10 @@
                     <td>
                         <app-stars [rating]='item.rating'></app-stars>
                     </td>
-                    <button>
+                    <button class="edit-btn">
                         <a [routerLink]="['/items/info', item.id]">EDIT</a>
                     </button>
+                    <button class="delete-btn" (click)="deleteById(item.id)">DELETE</button>
                 </tr>
             </tbody>
         </table>

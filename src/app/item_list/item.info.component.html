@@ -12,7 +12,6 @@
             name="item name"
         >
         <span *ngIf="itemName.invalid">Camp required</span>
-        <span>{{ itemName.value }}</span>
     </div>
 
     <div>
@@ -26,7 +25,6 @@
             name="item price"
         >
         <span *ngIf="itemPrice.invalid">Camp required</span>
-        <span>{{ itemPrice.value }}</span>
     </div>
 
     <div>
@@ -40,9 +38,9 @@
             max="5"
             type="number"
             name="item rating"
+            id="rating"
         >
         <span *ngIf="itemRating.invalid">Insert a value between ZERO and FIVE</span>
-        <span>{{ itemRating.value }}</span>
     </div>
 
     <button [disabled]="itemForm.invalid" (click)="save()">Save</button>

@@ -29,6 +29,13 @@ export class ItemListComponent implements OnInit {
         this.filteredItems = this._items;
     };
 
+    deleteById(id: number): void {
+        this.itemService.deleteById(id).subscribe({
+            next: () => this.retrieveAll(),
+            error: err => console.log("Error! ", err)
+        });
+    }
+
     ngOnInit(): void { this.retrieveAll() };
 
     set filter(value: string) {

@@ -28,6 +28,10 @@ export class ItemService {
             return this.httpClient.post<Item>(`${this.itemsUrl}`, modifiedItem)
         }
     };
+
+    deleteById(id: number): Observable<any> {
+        return this.httpClient.delete<any>(`${this.itemsUrl}/${id}`)
+    }
 };
 
 let ITEMS: Item[] = [
